@@ -33,29 +33,9 @@ done
 for file in $outpathraw/*.setID
 do
          sample=$(basename $file "_rsidraw.setID")
+         outfile1=$outpath/$sample"1.setID"
          outfile=$outpath/$sample".setID"
          echo $sample $outfile
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr1/,"1",$1)}1' $file | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr2/,"2",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr3/,"3",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr4/,"4",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr5/,"5",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr6/,"6",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr7/,"7",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr8/,"8",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr9/,"9",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr10/,"10",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr11/,"11",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr12/,"12",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr13/,"13",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr14/,"14",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr15/,"15",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr16/,"16",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr17/,"17",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr18/,"19",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr20/,"20",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr21/,"21",$1)}1' | \
-         #awk 'BEGIN {OFS=FS="\t"} {gsub(/chr22/,"22",$1)}1' | \
-         awk 'BEGIN {OFS=FS="\t"} {gsub(/X/,"23",$1)}1' | \
-         awk 'BEGIN {OFS=FS="\t"} {gsub(/Y/,"24",$1)}1' > $outfile
+         awk 'BEGIN {OFS=FS="\t"} {gsub(/X/,"23",$1)}1' $file > $outfile1
+         awk 'BEGIN {OFS=FS="\t"} {gsub(/Y/,"24",$1)}1' $outfile1 > $outfile
 done
