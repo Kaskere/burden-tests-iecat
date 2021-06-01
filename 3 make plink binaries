@@ -1,0 +1,31 @@
+
+#!/bin/bash
+#PBS -N plink_tped
+#PBS -q long
+#PBS -l walltime=72:00:00
+#PBS -l nodes=1:ppn=1
+#PBS -l feature=largescratch
+
+
+
+
+# plink --vcf input --out output
+module load  bio/plink/1.90b6.21
+
+
+export indir=/dir
+
+export outdir=/dir
+
+mkdir -p $outdir
+chmod u+rwx $outdir
+
+for file in $indir/*.vcf ;
+do
+        sample=$(basename $file ".vcf")
+
+                echo samples are $sample
+
+                plink --vcf --make-bed --out $outdir/$sample
+
+done
