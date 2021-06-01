@@ -1,0 +1,28 @@
+
+#!/bin/bash 
+
+
+#PBS -N convert_rsID
+#PBS -q long
+#PBS -l walltime=72:00:00
+#PBS -l nodes=1:ppn=4
+#PBS -l feature=largescratch
+
+
+######### The dbSNP VCF file is downloadable from the dbSNP FTP site  https://ftp.ncbi.nih.gov/snp/  ###############
+
+dir=/mnt/beegfs/groups/usr/vcf_ready_nexus
+outpath=/mnt/beegfs/groups/usr/vcf_ready_nexus/rsid
+
+mkdir $outpath
+chmod u+rwx $outpath
+
+for file in $dir/*.vcf.gz ;
+do
+	
+        sample=$(basename $file ".vcf.gz")
+        outfile=$outpath/$sample"_rsid.vcf"
+        echo outputs are $sample $outfile
+
+	java -jar /mnt/home/baiba01/azoo/tools/snpEff/SnpSift.jar annotate 00-All.vcf.gz $file > $outfile
+done
