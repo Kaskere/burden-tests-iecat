@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+
+#PBS -N makesetID_genes
+#PBS -q long
+#PBS -l walltime=72:00:00
+#PBS -l nodes=1:ppn=4
+#PBS -l feature=largescratch
+#PBS -o rsu
+
+
+
+### make set ID with gene sets for iecat
+
+dir=/dir
+
+outpath=dir
+
+mkdir $outpath
+chmod u+rwx $outpath
+
+#mkdir $outpathraw
+#chmod u+rwx $outpathraw
+for file in $dir/*.vcf ;
+do
+    sample=$(basename $file ".vcf")
+    outfile=$outpath/$sample"_genesets.setID"
+
+    echo outputs are $sample $outfile
+    java -jar /mnt/home/baiba01/azoo/tools/snpEff/SnpSift.jar  extractFields  $file ID CSQ | awk -F"|" '{print $14, $1}' \
+    |  tail -n +2 | grep -v '^MT' > $outfile
+
+
+done
